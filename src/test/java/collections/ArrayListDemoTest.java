@@ -5,6 +5,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.Date;
+import java.util.Iterator;
 
 import static org.junit.Assert.*;
 
@@ -14,6 +15,11 @@ public class ArrayListDemoTest {
     @Before
     public void initialize() {
         list = new ArrayListDemo();
+        list.add(1);
+        list.add("abs");
+        list.add(new Date());
+        list.add(1.5);
+        list.add("3");
     }
 
     @Test
@@ -26,12 +32,9 @@ public class ArrayListDemoTest {
 
     @Test
     public void add() {
-        list.add(1);
-        list.add("abs");
-        list.add(new Date());
-        assertEquals(3,list.size());
+        assertEquals(5,list.size());
         list.add(1, 2);
-        assertEquals(4, list.size());
+        assertEquals(6, list.size());
     }
 
     @Test
@@ -40,10 +43,6 @@ public class ArrayListDemoTest {
 
     @Test
     public void remove() {
-    }
-
-    @Test
-    public void remove1() {
     }
 
     @Test
@@ -56,5 +55,19 @@ public class ArrayListDemoTest {
 
     @Test
     public void set() {
+    }
+
+    @Test
+    public void iterator() {
+        Iterator iterator = list.iterator();
+        while (iterator.hasNext()){
+            Object obj = iterator.next();
+            System.out.println("Next obj:" + obj);
+            if("abs".equals(obj)){
+                iterator.remove();
+            }
+        }
+
+        assertEquals(-1, list.indexOf("abs"));
     }
 }
