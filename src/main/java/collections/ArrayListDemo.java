@@ -38,19 +38,17 @@ public class ArrayListDemo {
             this.capacity = DEFAULT_CAPACITY;
         }
         if (size == capacity) {
-            resize();
+            expand();
         }
-
+        size = size + 1;
         elementData[size++] = obj;
         return true;
     }
 
     public boolean add(int index, Object obj) {
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Index is out of bounds, index: " + index + "size: " + size);
-        }
+        rangeCheck(index);
         if (size == capacity) {
-            resize();
+            expand();
         }
 
         System.arraycopy(elementData, index, elementData, index + 1, size - index);
@@ -59,7 +57,13 @@ public class ArrayListDemo {
         return true;
     }
 
-    private void resize() {
+    private void rangeCheck(int index) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Index is out of bounds, index: " + index + "size: " + size);
+        }
+    }
+
+    private void expand() {
         int oldCapacity = elementData.length;
         int newCapacity = oldCapacity * 2;
         Object[] newElementData = new Object[newCapacity];
@@ -70,22 +74,60 @@ public class ArrayListDemo {
     }
 
     public Object remove(int index) {
-        return null;
+        rangeCheck(index);
+        Object value = elementData[index];
+        for (int i = index; i < size; i++) {
+            elementData[i] = elementData[i + 1];
+        }
+        size = size - 1;
+        elementData[size] = null;
+        return value;
     }
 
-    public boolean remove(Object value) {
+    //删除第一个
+    public boolean remove(Object obj) {
+        if (obj == null) {
+            for (int index = 0; index < size; index++) {
+                if (elementData[index] == null) {
+                    remove(index);
+                    return true;
+                }
+            }
+        } else {
+            for (int index = 0; index < size; index++) {
+                if (elementData[index].equals(obj)) {
+                    remove(index);
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
     public Object get(int index) {
-        return null;
+        rangeCheck(index);
+        return elementData[index];
     }
 
     public int indexOf(Object obj) {
+        if (obj == null) {
+            for (int index = 0; index < size; index++) {
+                if (elementData[index] == null) {
+                    return index;
+                }
+            }
+        } else {
+            for (int index = 0; index < size; index++) {
+                if (elementData[index].equals(obj)) {
+                    return index;
+                }
+            }
+        }
         return -1;
     }
 
     public void set(int index, Object obj) {
-
+        rangeCheck(index);
+        elementData[index] = obj;
     }
 }
