@@ -29,6 +29,7 @@ public class ArrayListDemoTest {
         list.add(1);
         list.add("abs");
         list.add(new Date());
+        assertEquals(list.size(), 3);
     }
 
     @Test
