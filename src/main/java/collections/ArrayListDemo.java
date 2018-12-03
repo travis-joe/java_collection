@@ -44,8 +44,8 @@ public class ArrayListDemo {
         if (size == capacity) {
             expand();
         }
-        size = size + 1;
         elementData[size] = obj;
+        size = size + 1;
         return true;
     }
 
