@@ -22,4 +22,36 @@ public class ArrayListDemo {
             throw new IllegalArgumentException("Illegal capacity: " + capacity);
         }
     }
+
+    public boolean isEmpty(){
+        return size == 0;
+    }
+
+    public int size(){
+        return size;
+    }
+
+    public boolean add(Object obj){
+        return false;
+    }
+
+    public void add(int index, Object obj){
+
+    }
+
+    public Object remove(int index){
+        return null;
+    }
+
+    public boolean remove(Object value){
+        return false;
+    }
+
+    public Object get(int index){
+        return null;
+    }
+
+    public void set(int index, Object obj){
+
+    }
 }
