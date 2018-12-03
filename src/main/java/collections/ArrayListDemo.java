@@ -1,5 +1,9 @@
 package collections;
 
+import javax.swing.text.html.HTMLDocument;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 public class ArrayListDemo {
     private static final Object[] EMPTY_ELEMENT_DATA = {};
     private static final int DEFAULT_CAPACITY = 10;
@@ -41,7 +45,7 @@ public class ArrayListDemo {
             expand();
         }
         size = size + 1;
-        elementData[size++] = obj;
+        elementData[size] = obj;
         return true;
     }
 
@@ -95,7 +99,7 @@ public class ArrayListDemo {
             }
         } else {
             for (int index = 0; index < size; index++) {
-                if (elementData[index].equals(obj)) {
+                if (obj.equals(elementData[index])) {
                     remove(index);
                     return true;
                 }
@@ -118,7 +122,7 @@ public class ArrayListDemo {
             }
         } else {
             for (int index = 0; index < size; index++) {
-                if (elementData[index].equals(obj)) {
+                if (obj.equals(elementData[index])) {
                     return index;
                 }
             }
@@ -130,4 +134,40 @@ public class ArrayListDemo {
         rangeCheck(index);
         elementData[index] = obj;
     }
+
+    public Iterator iterator() {
+        return new Itr();
+    }
+
+    private class Itr implements Iterator {
+        int cursor; //index of next ele
+        int lastReturn = -1; //index of last element returned
+
+        public Itr() {
+        }
+
+        public boolean hasNext() {
+            return cursor != size;
+        }
+
+        public Object next() {
+            int i = cursor;
+            if(i >= size) {
+                throw new NoSuchElementException();
+            }
+            lastReturn = i;
+            cursor = i + 1;
+            return elementData[lastReturn];
+        }
+
+        public void remove() {
+            if(lastReturn < 0) {
+                throw new IllegalArgumentException();
+            }
+            ArrayListDemo.this.remove(lastReturn);
+            cursor = lastReturn;
+            lastReturn = -1;
+        }
+    }
+
 }
