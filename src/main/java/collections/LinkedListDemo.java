@@ -13,9 +13,9 @@ public class LinkedListDemo {
         }
     }
 
-    int size = 0;
-    Node first;
-    Node last;
+    private int size = 0;
+    private Node first;
+    private Node last;
 
     public boolean add(Object obj) {
         Node l = last;
@@ -117,7 +117,7 @@ public class LinkedListDemo {
 
     }
 
-    public boolean remore(Object obj) {
+    public boolean remove(Object obj) {
 
     }
 }
