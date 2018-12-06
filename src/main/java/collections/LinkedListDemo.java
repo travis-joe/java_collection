@@ -113,12 +113,110 @@ public class LinkedListDemo {
     }
 
 
-    public Object remove(int index){
-
+    public Object remove(int index) {
+        if (!checkPositionIndex(index)) {
+            throw new IndexOutOfBoundsException("Index is invalid, index:" + index);
+        }
+        return unlink(traverse(index));
     }
 
     public boolean remove(Object obj) {
 
     }
+    public boolean removeLast(Object obj) {
+
+    }
+    public boolean removeFirst(Object obj) {
+
+    }
+    private Object unlink(Node node) {
+        Object element = node.item;
+        Node prev = node.prev;
+        Node next = node.next;
+        if (prev == null) {
+            first = next;
+        } else {
+            prev.next = next;
+            node.prev = null;
+        }
+
+        if (next == null) {
+            last = prev;
+        } else {
+            next.prev = prev;
+            node.next = null;
+        }
+
+        node.item = null;
+        size--;
+        return element;
+    }
+
+    public Object get(int index) {
+        if (!checkPositionIndex(index)) {
+            throw new IndexOutOfBoundsException("Index is invalid, index:" + index);
+        }
+        return traverse(index).item;
+    }
+
+    public Object set(int index, Object obj) {
+        if (!checkPositionIndex(index)) {
+            throw new IndexOutOfBoundsException("Index is invalid, index:" + index);
+        }
+        Node x = traverse(index);
+        Object oldValue = x.item;
+        x.item = obj;
+        return oldValue;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public int indexOf(Object obj) {
+        int index = 0;
+        if (obj == null) {
+            for (Node x = first; x != null; x = x.next) {
+                if (x.item == null) {
+                    return index;
+                }
+                index++;
+            }
+        } else {
+            for (Node x = first; x != null; x = x.next) {
+                if (obj.equals(x.item)) {
+                    return index;
+                }
+                index++;
+            }
+        }
+
+        return -1;
+    }
+    public int lastIndexOf(Object obj) {
+        int index = size;
+        if (obj == null) {
+            for (Node x = last; x != null; x = x.prev) {
+                if (x.item == null) {
+                    return index;
+                }
+                index--;
+            }
+        } else {
+            for (Node x = last; x != null; x = x.prev) {
+                if (obj.equals(x.item)) {
+                    return index;
+                }
+                index--;
+            }
+        }
+
+        return -1;
+    }
+    public boolean contains(Object obj) {
+        return indexOf(obj) != -1;
+    }
+
+
 }
 
