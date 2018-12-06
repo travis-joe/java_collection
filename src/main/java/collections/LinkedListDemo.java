@@ -121,14 +121,63 @@ public class LinkedListDemo {
     }
 
     public boolean remove(Object obj) {
-
+        int index = indexOf(obj);
+        if (index > -1) {
+            remove(index);
+            return true;
+        } else {
+            return false;
+        }
     }
-    public boolean removeLast(Object obj) {
 
-    }
     public boolean removeFirst(Object obj) {
-
+        int index = indexOf(obj);
+        if (index > -1) {
+            removeFirst(index);
+            return true;
+        } else {
+            return false;
+        }
     }
+
+    public boolean removeLast(Object obj) {
+        int index = indexOf(obj);
+        if (index > -1) {
+            removeLast(index);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private Object unlinkFirst(Node f) {
+        Object element = f.item;
+        Node nextNode = f.next;
+        f.item = null;
+        f.next = null;
+        first = nextNode;
+        if (nextNode == null)
+            last = null;
+        else
+            nextNode.prev = null;
+        size--;
+        return element;
+    }
+
+    private Object unlinkLast(Node l) {
+        Object element = l.item;
+        Node prevNode = l.prev;
+        l.item = null;
+        l.prev = null;
+        last = prevNode;
+        if (prevNode == null)
+            first = null;
+        else
+            prevNode.next = null;
+        size--;
+        return element;
+    }
+
     private Object unlink(Node node) {
         Object element = node.item;
         Node prev = node.prev;
@@ -193,6 +242,7 @@ public class LinkedListDemo {
 
         return -1;
     }
+
     public int lastIndexOf(Object obj) {
         int index = size;
         if (obj == null) {
@@ -213,6 +263,7 @@ public class LinkedListDemo {
 
         return -1;
     }
+
     public boolean contains(Object obj) {
         return indexOf(obj) != -1;
     }
