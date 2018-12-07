@@ -1,7 +1,9 @@
 package collections;
 
+import java.util.NoSuchElementException;
+
 public class LinkedListDemo {
-    class Node {
+    public static class Node {
         Object item;
         Node next;
         Node prev;
@@ -16,6 +18,17 @@ public class LinkedListDemo {
     private int size = 0;
     private Node first;
     private Node last;
+
+    public Node getFirst() {
+        return first;
+    }
+
+    public Node getLast() {
+        return last;
+    }
+
+    public LinkedListDemo() {
+    }
 
     public boolean add(Object obj) {
         Node l = last;
@@ -130,24 +143,20 @@ public class LinkedListDemo {
         }
     }
 
-    public boolean removeFirst(Object obj) {
-        int index = indexOf(obj);
-        if (index > -1) {
-            removeFirst(index);
-            return true;
-        } else {
-            return false;
+    public Object removeFirst() {
+        Node f = first;
+        if(f == null) {
+            throw new NoSuchElementException();
         }
+        return unlinkFirst(f);
     }
 
-    public boolean removeLast(Object obj) {
-        int index = indexOf(obj);
-        if (index > -1) {
-            removeLast(index);
-            return true;
-        } else {
-            return false;
+    public Object removeLast() {
+        Node l = last;
+        if(l == null) {
+            throw new NoSuchElementException();
         }
+        return unlinkLast(l);
     }
 
     private Object unlinkFirst(Node f) {
